@@ -171,7 +171,7 @@ module FakeS3
       bucket_obj = @store.get_bucket(s_req.bucket) || @store.create_bucket(s_req.bucket)
       real_obj=@store.store_object(bucket_obj, key, s_req.webrick_request)
       
-      response['Etag'] = "\"#{real_obj.md5}\""
+      response['ETag'] = "\"#{real_obj.md5}\""
       response.body = ""
       if success_action_redirect
         response.status = 307
@@ -185,7 +185,7 @@ module FakeS3
               <Location>http://#{s_req.bucket}.localhost:#{@port}/#{key}</Location>
               <Bucket>#{s_req.bucket}</Bucket>
               <Key>#{key}</Key>
-              <ETag>#{response['Etag']}</ETag>
+              <ETag>#{response['ETag']}</ETag>
             </PostResponse>
           eos
         end
